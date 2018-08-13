@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ctrls/MouseWndMover.qml</file>
+        <file>ctrls/OverlayCom.qml</file>
+        <file>ctrls/WndContainer.qml</file>
+        <file>ctrls/BorderlessWindow.qml</file>
+    </qresource>
+</RCC>
