@@ -9,9 +9,21 @@ import "ctrls"
 BorderlessWindow {
     id: root
 
-    Button {
-        anchors.centerIn: root.app_center_rect
-        text: "AAAAA"
-        font.pointSize: 32
-    }
+    app_content_rect.source: "qrc:/ctrls/NormalButton.qml"
+//    app_content_rect.sourceComponent: Rectangle {
+//        anchors.fill: parent
+//        color: "red"
+//    }
+
+//    Button {
+//        parent: root.app_content_rect
+//        id: testbtn
+//        anchors.centerIn: root.app_content_rect
+//        text: "AAAAA"
+//        font.pointSize: 32
+
+//        onParentChanged: {
+////            console.log(testbtn.parent)
+//        }
+//    }
 }

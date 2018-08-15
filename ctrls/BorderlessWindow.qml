@@ -20,7 +20,7 @@ ApplicationWindow {
     Material.background: Material.background
     font.family: "Microsoft YaHei"
 
-    property var app_center_rect: center_rect
+    property alias app_content_rect: center_rect.r_p_c_rect
 
     WndContainer {
         id: main_box
@@ -36,32 +36,64 @@ ApplicationWindow {
         id: center_rect
         anchors.fill: main_box
         radius: main_box.win_radius
-    }
+        property alias r_p_c_rect: cl.p_c_rect
 
-//    Button {
-//        anchors.fill: main_box
-//        text: "AAAAAAAAA"
-//        onClicked: {
-//            popDialog.open()
-//        }
-//    }
+        ColumnLayout {
+            id: cl
+            anchors.fill: parent
+            spacing: 0
+            property alias p_c_rect: content_rect
+            Item {
+                id: title_rect
+                implicitWidth: cl.width
+                implicitHeight: 60
 
-    Dialog {
-        id: popDialog
-        modal: true
-        implicitWidth: 320
-        implicitHeight: 240
-        standardButtons: Dialog.Ok
-        parent: Overlay.overlay
-        Overlay.modal: OverlayCom {
-            parent_dlg: main_box
+                Rectangle {
+                    color: "white"
+                    radius: 4
+                    anchors.fill: parent
+                }
+                Rectangle {
+                    color: "white"
+                    anchors.fill: parent
+                    anchors.topMargin: 4
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 5
+                    anchors.rightMargin: 5
+                    Layout.alignment: Qt.AlignVCenter
+                    Text {
+                        id: title_text
+                        Layout.fillWidth: true
+                        height: title_rect.height
+                        text: qsTr("text")
+                    }
+
+                    Button {
+                        text: qsTr("mini")
+                        onClicked: root.showMinimized()
+                    }
+                    Button {
+                        text: qsTr("max")
+                        onClicked: root.showMaximized()
+                    }
+                    Button {
+                        text: qsTr("close")
+                        onClicked: root.close()
+                    }
+                }
+
+
+            }
+
+            Loader {
+                id: content_rect
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-        Text {
-            id: name
-            anchors.centerIn: parent
-            text: qsTr("Hello World")
-        }
+
     }
 }
