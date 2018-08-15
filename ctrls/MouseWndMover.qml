@@ -12,6 +12,7 @@ MouseArea{
     property bool is_pressed: false
     property point origin_pos
     property int padding_test: 4
+    property int direction
 
     cursorShape: "ArrowCursor"
     anchors.fill: wnd_anchor
@@ -28,8 +29,10 @@ MouseArea{
 
         wnd_move_target.x = rx
         wnd_move_target.y = ry
-        wnd_move_target.width = rw + m_const.shadow_len*2
-        wnd_move_target.height = rh + m_const.shadow_len*2
+//        if (direction != 7 && direction !=8)
+            wnd_move_target.width = rw
+//        if (direction != 5 && direction != 6)
+            wnd_move_target.height = rh
     }
 
     function getDirection(x, y, top_left, bottom_right) {
@@ -37,7 +40,6 @@ MouseArea{
         top_left.y -= m_const.shadow_len
         bottom_right.x -= m_const.shadow_len;
         bottom_right.y -= m_const.shadow_len
-        console.log(bottom_right.y, y)
         var ret_dir
         if(top_left.x + padding_test >= x
                 && top_left.x <= x
@@ -108,14 +110,57 @@ MouseArea{
         var pt_bl = wnd_anchor.mapToGlobal(rect.x, rect.y+rect.height)
         var pt_tr = wnd_anchor.mapToGlobal(rect.x+rect.width, rect.y)
         var pt_br = wnd_anchor.mapToGlobal(rect.x+rect.width, rect.y+rect.height)
-
-        var direction = getDirection(g_pos.x, g_pos.y, pt_tl, pt_br)
-
+        //上7 下8 左5 右6 左上1 右下2 左下3 右上4
         if (!ma.is_pressed){
-            origin_pos = pt_tl
+            direction = getDirection(g_pos.x, g_pos.y, pt_tl, pt_br)
+            switch(direction) {
+            case 6:
+            case 2:
+            case 0:
+                origin_pos = pt_tl
+                break
+            case 4:
+                origin_pos = pt_bl
+                break
+            case 5:
+            case 3:
+                origin_pos = pt_tr
+                break
+            case 1:
+            case 7:
+                origin_pos = pt_br
+                break
+            case 8:
+                origin_pos = pt_tl
+                break
+            }
+
             mouse.accept = true
         } else {
-            onMouseChange(g_pos.x, pt_br.y)
+            if (direction != 0) {
+                switch(direction) {
+                case 5:
+                    onMouseChange(g_pos.x, pt_bl.y)
+                    break
+                case 6:
+                    onMouseChange(g_pos.x, pt_br.y)
+                    break
+                case 7:
+                    onMouseChange(pt_tl.x, g_pos.y)
+                    break
+                case 8:
+                    onMouseChange(pt_br.x, g_pos.y)
+                    break
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    onMouseChange(g_pos.x, g_pos.y)
+                    break
+                default:
+                    break;
+                }
+            }
         }
     }
     onReleased:{
