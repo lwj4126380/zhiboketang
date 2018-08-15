@@ -1,25 +1,32 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtQuick.Controls.Material 2.4
 
 Item {
     layer.enabled: true
 
     Rectangle {
         color: "white"
-        radius: 4
+        radius: m_const.wnd_radius
         anchors.fill: parent
     }
     Rectangle {
         color: "white"
         anchors.fill: parent
-        anchors.bottomMargin: 4
+        anchors.bottomMargin: m_const.wnd_radius
     }
 
     Button {
         anchors.centerIn: parent
         text: "AAAAA"
+        Material.background: "red"
+        Material.foreground: "white"
         onClicked: popDialog.open()
     }
+
+//    BusyIndicator {
+//        anchors.fill: parent
+//    }
 
     Dialog {
         id: popDialog

@@ -9,6 +9,7 @@ import "ctrls"
 BorderlessWindow {
     id: root
 
+    app_title: m_const.app_name
     app_content_rect.source: "qrc:/ctrls/NormalButton.qml"
 //    app_content_rect.sourceComponent: Rectangle {
 //        anchors.fill: parent

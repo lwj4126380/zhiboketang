@@ -7,8 +7,8 @@ import QtQuick.Window 2.11
 ApplicationWindow {
     id: root
 
-    width: 640
-    height: 480
+    width: m_const.wnd_min_width
+    height: m_const.wnd_min_height
 
     visible: true
     title: "luweijia"
@@ -21,6 +21,7 @@ ApplicationWindow {
     font.family: "Microsoft YaHei"
 
     property alias app_content_rect: center_rect.r_p_c_rect
+    property var app_title
 
     WndContainer {
         id: main_box
@@ -50,13 +51,13 @@ ApplicationWindow {
 
                 Rectangle {
                     color: "white"
-                    radius: 4
+                    radius: main_box.win_radius
                     anchors.fill: parent
                 }
                 Rectangle {
                     color: "white"
                     anchors.fill: parent
-                    anchors.topMargin: 4
+                    anchors.topMargin: main_box.win_radius
                 }
 
                 RowLayout {
@@ -68,7 +69,7 @@ ApplicationWindow {
                         id: title_text
                         Layout.fillWidth: true
                         height: title_rect.height
-                        text: qsTr("text")
+                        text: qsTr(app_title)
                     }
 
                     Button {

@@ -4,8 +4,8 @@
 #include <QQuickWindow>
 #include <QQuickStyle>
 #include <QDebug>
-#include "windowcontroller.h"
-#include "frameprovider.h"
+#include "utils/windowcontroller.h"
+#include "utils/frameprovider.h"
 
 int main(int argc, char *argv[])
 {

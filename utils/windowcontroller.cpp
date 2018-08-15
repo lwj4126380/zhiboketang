@@ -2,6 +2,7 @@
 #include <QQuickWindow>
 #include <QQmlContext>
 #include <QDebug>
+#include "cconstants.h"
 
 WindowController::WindowController(QObject *parent) : QObject(parent)
 {
@@ -17,6 +18,7 @@ void WindowController::openMainView()
 {   
     QQmlApplicationEngine *engine = new QQmlApplicationEngine();
     engine->rootContext()->setContextProperty("g_controller", this);
+    engine->rootContext()->setContextProperty("m_const", CSingleton<CConstants>::Instance());
     engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
     QList<QObject*> obs = engine->rootObjects();
     if (!obs.isEmpty()) {

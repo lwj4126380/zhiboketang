@@ -14,7 +14,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    windowcontroller.cpp
+    utils/windowcontroller.cpp \
+    utils/cconstants.cpp \
+    utils/ilivehelper.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,5 +35,8 @@ INCLUDEPATH += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\include
 LIBS += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\libs\\iLiveSDK.lib
 
 HEADERS += \
-    windowcontroller.h \
-    frameprovider.h
+    utils/windowcontroller.h \
+    utils/frameprovider.h \
+    utils/cconstants.h \
+    utils/ilivehelper.h \
+    utils/stable.h
