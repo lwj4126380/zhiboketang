@@ -17,8 +17,9 @@ signals:
 
 public slots:
     void onQuickWindowClosing();
+    void onRequestMinium();
 private:
-    QMap<QObject*, QPair<QQmlApplicationEngine*, void*>> engines;
+    QMap<QObject*, QQmlApplicationEngine*> engines;
 };
 
 #endif // WINDOWCONTROLLER_H

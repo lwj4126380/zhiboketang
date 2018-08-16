@@ -20,7 +20,7 @@ Item {
         text: "AAAAA"
         Material.background: "red"
         Material.foreground: "white"
-        onClicked: popDialog.open()
+        onClicked: g_controller.openMainView()
     }
 
 //    BusyIndicator {
