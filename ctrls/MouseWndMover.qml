@@ -22,24 +22,21 @@ MouseArea{
         if (x < 0 || y < 0) {
             return;
         }
+
         var rx = (x >= origin_pos.x) ? origin_pos.x : x
         var ry = (y >= origin_pos.y) ? origin_pos.y : y
         var rw = Math.abs(x - origin_pos.x)
         var rh = Math.abs(y - origin_pos.y)
 
-        wnd_move_target.x = rx
-        wnd_move_target.y = ry
-//        if (direction != 7 && direction !=8)
-            wnd_move_target.width = rw
-//        if (direction != 5 && direction != 6)
-            wnd_move_target.height = rh
+        wnd_move_target.x = rx - m_const.shadow_len
+        wnd_move_target.y = ry - m_const.shadow_len
+        if (rw !== wnd_anchor.width)
+            wnd_move_target.width = rw + m_const.shadow_len*2
+        if (rh !== wnd_anchor.height)
+            wnd_move_target.height = rh + m_const.shadow_len*2
     }
 
     function getDirection(x, y, top_left, bottom_right) {
-        top_left.x -= m_const.shadow_len
-        top_left.y -= m_const.shadow_len
-        bottom_right.x -= m_const.shadow_len;
-        bottom_right.y -= m_const.shadow_len
         var ret_dir
         if(top_left.x + padding_test >= x
                 && top_left.x <= x
@@ -103,7 +100,7 @@ MouseArea{
         ma.is_pressed = true
     }
     onPositionChanged: {
-        var rect = Qt.rect(wnd_anchor.x, wnd_anchor.y, wnd_anchor.width, wnd_anchor.height)
+        var rect = Qt.rect(0, 0, wnd_anchor.width, wnd_anchor.height)
 
         var g_pos = wnd_anchor.mapToGlobal(mouse.x, mouse.y)
         var pt_tl = wnd_anchor.mapToGlobal(rect.x, rect.y)
