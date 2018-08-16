@@ -10,6 +10,9 @@ ApplicationWindow {
     width: m_const.wnd_min_width
     height: m_const.wnd_min_height
 
+    minimumWidth: m_const.wnd_min_width
+    minimumHeight: m_const.wnd_min_height
+
     visible: true
     title: "luweijia"
     color: "transparent"
@@ -53,7 +56,6 @@ ApplicationWindow {
         wnd_offset: main_box.shadow_len
         wnd_anchor: main_box
         wnd_move_target: root
-        scale_enable: root.visibility !== Window.Maximized
     }
 
     Rectangle {

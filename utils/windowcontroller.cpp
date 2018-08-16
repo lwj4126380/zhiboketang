@@ -1,8 +1,10 @@
 #include "windowcontroller.h"
+#include <QCoreApplication>
 #include <QQuickWindow>
 #include <QQmlContext>
 #include <QDebug>
 #include "cconstants.h"
+#include "../os/cnativeeventfilter.h"
 
 WindowController::WindowController(QObject *parent) : QObject(parent)
 {
@@ -23,7 +25,9 @@ void WindowController::openMainView()
     QList<QObject*> obs = engine->rootObjects();
     if (!obs.isEmpty()) {
         QQuickWindow *window = qobject_cast<QQuickWindow *>(obs.first());
-        engines.insert(window, engine);
+        auto nef = new CNativeEventFilter((HWND)window->winId(), window);
+        qApp->installNativeEventFilter(nef);
+        engines.insert(window, QPair<QQmlApplicationEngine*, void*>(engine, nef));
         connect(window, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(onQuickWindowClosing()));
     }
 }
@@ -33,7 +37,8 @@ void WindowController::onQuickWindowClosing()
     QObject *o = sender();
     o->deleteLater();
     if (engines.contains(o)) {
-        engines.value(o)->deleteLater();
+        engines.value(o).first->deleteLater();
         engines.remove(o);
+        delete engines.value(o).second;
     }
 }
