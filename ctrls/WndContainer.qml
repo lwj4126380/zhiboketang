@@ -7,7 +7,7 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: root
 
-    readonly property int shadow_len: m_const.shadow_len
+    property int shadow_len: m_const.shadow_len
     readonly property int win_radius: m_const.wnd_radius
 
     radius: win_radius

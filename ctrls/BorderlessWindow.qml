@@ -13,7 +13,7 @@ ApplicationWindow {
     visible: true
     title: "luweijia"
     color: "transparent"
-    flags: Qt.FramelessWindowHint | Qt.Window | Qt.WindowMinimizeButtonHint
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     Material.theme: Material.Light
     Material.accent: Material.Pink
@@ -22,6 +22,20 @@ ApplicationWindow {
 
     property alias app_content_rect: center_rect.r_p_c_rect
     property var app_title
+
+    function setWindowMaxi() {
+        if (root.visibility !== Window.Maximized) {
+            main_box.shadow_len = 0
+            root.showMaximized()
+        } else {
+            main_box.shadow_len = m_const.shadow_len
+            root.showNormal()
+        }
+    }
+
+    function setWindowMini() {
+
+    }
 
     WndContainer {
         id: main_box
@@ -78,7 +92,7 @@ ApplicationWindow {
                     }
                     Button {
                         text: qsTr("max")
-                        onClicked: root.showMaximized()
+                        onClicked: setWindowMaxi()
                     }
                     Button {
                         text: qsTr("close")
