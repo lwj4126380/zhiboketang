@@ -7,8 +7,8 @@ CConstants::CConstants(QObject *obj)
       m_shadow_len(10),
       m_wnd_radius(4),
       m_title_height(60),
-      m_wnd_min_height(480),
-      m_wnd_min_width(640)
+      m_wnd_min_width(1280),
+      m_wnd_min_height(800)
 {
 
 }

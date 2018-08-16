@@ -13,6 +13,7 @@ MouseArea{
     property int direction
     property point last_pos
     property point cur_pos
+    property bool scale_enable
 
     cursorShape: "ArrowCursor"
     anchors.fill: wnd_anchor
@@ -115,10 +116,14 @@ MouseArea{
     }
 
     onPressed: {
+        if (!scale_enable)
+            return
         last_pos = wnd_anchor.mapToGlobal(mouse.x, mouse.y)
         is_pressed = true
     }
     onPositionChanged: {
+        if (!scale_enable)
+            return
         var rect = Qt.rect(0, 0, wnd_anchor.width, wnd_anchor.height)
 
         cur_pos = wnd_anchor.mapToGlobal(mouse.x, mouse.y)
@@ -154,6 +159,12 @@ MouseArea{
             mouse.accept = true
         } else {
             if (direction != 0) {
+                if (cur_pos.x - pt_tl.x < m_const.wnd_min_width-2*m_const.shadow_len)
+                    cur_pos.x = pt_tl.x + m_const.wnd_min_width-2*m_const.shadow_len
+
+                if (cur_pos.y - pt_tl.y < m_const.wnd_min_height-2*m_const.shadow_len)
+                    cur_pos.y = pt_tl.y + m_const.wnd_min_height-2*m_const.shadow_len
+
                 switch(direction) {
                 case 5:
                     onMouseChange(cur_pos.x, pt_bl.y)
@@ -187,6 +198,9 @@ MouseArea{
         }
     }
     onReleased:{
+        if (!scale_enable)
+            return
         is_pressed = false
+        cursorShape = Qt.ArrowCursor
     }
 }

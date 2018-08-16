@@ -4,7 +4,6 @@ import QtQuick.Controls.Material 2.4
 
 Item {
     layer.enabled: true
-
     Rectangle {
         color: "white"
         radius: m_const.wnd_radius

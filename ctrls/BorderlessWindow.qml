@@ -13,7 +13,7 @@ ApplicationWindow {
     visible: true
     title: "luweijia"
     color: "transparent"
-    flags: Qt.FramelessWindowHint | Qt.Window
+    flags: Qt.FramelessWindowHint | Qt.Window | Qt.WindowMinimizeButtonHint
 
     Material.theme: Material.Light
     Material.accent: Material.Pink
@@ -22,19 +22,27 @@ ApplicationWindow {
 
     property alias app_content_rect: center_rect.r_p_c_rect
     property var app_title
+    property bool is_maxi
 
     function setWindowMaxi() {
         if (root.visibility !== Window.Maximized) {
+            is_maxi = true
             main_box.shadow_len = 0
             root.showMaximized()
         } else {
+            is_maxi = false
             main_box.shadow_len = m_const.shadow_len
             root.showNormal()
         }
     }
 
     function setWindowMini() {
+        root.showMinimized()
+    }
 
+    onWindowStateChanged: {
+        if (windowState === Qt.WindowNoState && is_maxi)
+            setWindowMaxi()
     }
 
     WndContainer {
@@ -45,6 +53,7 @@ ApplicationWindow {
         wnd_offset: main_box.shadow_len
         wnd_anchor: main_box
         wnd_move_target: root
+        scale_enable: root.visibility !== Window.Maximized
     }
 
     Rectangle {
@@ -56,7 +65,7 @@ ApplicationWindow {
         ColumnLayout {
             id: cl
             anchors.fill: parent
-            spacing: 0
+//            spacing: 0
             property alias p_c_rect: content_rect
             Item {
                 id: title_rect
@@ -88,7 +97,7 @@ ApplicationWindow {
 
                     Button {
                         text: qsTr("mini")
-                        onClicked: root.showMinimized()
+                        onClicked: setWindowMini()
                     }
                     Button {
                         text: qsTr("max")
