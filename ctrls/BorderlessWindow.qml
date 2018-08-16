@@ -8,6 +8,7 @@ ApplicationWindow {
     id: root
 
     signal requestMinium()
+    signal requestClose()
 
     width: m_const.wnd_min_width
     height: m_const.wnd_min_height
@@ -101,7 +102,7 @@ ApplicationWindow {
                     }
                     Button {
                         text: qsTr("close")
-                        onClicked: root.close()
+                        onClicked: requestClose()
                     }
                 }
 

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.4
 import QtQuick.Controls.Material 2.4
 
 Item {
+    property var root_window
     layer.enabled: true
     Rectangle {
         color: "white"
@@ -26,6 +27,13 @@ Item {
 //    BusyIndicator {
 //        anchors.fill: parent
 //    }
+
+    Connections {
+        target: root_window
+        onRequestClose: {
+            root_window.close()
+        }
+    }
 
     Dialog {
         id: popDialog
