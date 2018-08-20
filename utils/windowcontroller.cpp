@@ -5,10 +5,11 @@
 #include <QDebug>
 #include "cconstants.h"
 #include "../os/cnativeeventfilter.h"
+#include "../ilive/ilivehelper.h"
 
 WindowController::WindowController(QObject *parent) : QObject(parent)
 {
-
+    helper = new iLiveHelper(this);
 }
 
 WindowController::~WindowController()
@@ -21,6 +22,7 @@ void WindowController::openMainView()
     QQmlApplicationEngine *engine = new QQmlApplicationEngine();
     engine->rootContext()->setContextProperty("g_controller", this);
     engine->rootContext()->setContextProperty("m_const", CSingleton<CConstants>::Instance());
+    engine->rootContext()->setContextProperty("m_iLiveHelper", helper);
     engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
     QList<QObject*> obs = engine->rootObjects();
     if (!obs.isEmpty()) {

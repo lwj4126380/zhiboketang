@@ -16,8 +16,27 @@ SOURCES += \
         main.cpp \
     utils/windowcontroller.cpp \
     utils/cconstants.cpp \
-    utils/ilivehelper.cpp \
-    os/cnativeeventfilter.cpp
+    ilive/ilivehelper.cpp \
+    os/cnativeeventfilter.cpp \
+    ilive/MixStreamHelper.cpp \
+    ilive/NetworkHelper.cpp \
+    ilive/PicDownHelper.cpp \
+    ilive/SxbServerHelper.cpp \
+    ilive/json/jsoncpp.cpp
+
+HEADERS += \
+    utils/windowcontroller.h \
+    utils/frameprovider.h \
+    utils/cconstants.h \
+    ilive/ilivehelper.h \
+    utils/stable.h \
+    os/cnativeeventfilter.h \
+    ilive/MixStreamHelper.h \
+    ilive/NetworkHelper.h \
+    ilive/PicDownHelper.h \
+    ilive/SxbServerHelper.h \
+    ilive/json/json.h \
+    ilive/json/json-forwards.h
 
 RESOURCES += qml.qrc
 
@@ -32,15 +51,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-#INCLUDEPATH += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\include
-#LIBS += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\libs\\iLiveSDK.lib
+INCLUDEPATH += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\include
+LIBS += J:\\projects\\iLiveSDK_PC_Suixinbo-master\\iLiveSDK\\libs\\iLiveSDK.lib
 
 LIBS += -lUser32
 
-HEADERS += \
-    utils/windowcontroller.h \
-    utils/frameprovider.h \
-    utils/cconstants.h \
-    utils/ilivehelper.h \
-    utils/stable.h \
-    os/cnativeeventfilter.h
+
