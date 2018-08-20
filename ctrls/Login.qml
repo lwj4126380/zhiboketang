@@ -8,8 +8,9 @@ SwipeView {
     id: loginSwipeView
     objectName: "swipeview"
     anchors.fill: parent
-
     currentIndex: 0
+
+    property var root_window
 
     Item {
         id: firstPage
@@ -60,6 +61,13 @@ SwipeView {
         }
 
         onLoginSuccess: loginSwipeView.currentIndex = 0
+    }
+
+    Connections {
+        target: root_window
+        onRequestClose: {
+            root_window.close()
+        }
     }
 }
 

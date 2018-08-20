@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+*.orig
+*.pro.user

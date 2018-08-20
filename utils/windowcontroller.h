@@ -19,10 +19,10 @@ signals:
 
 public slots:
     void onQuickWindowClosing();
+    void onRequestMinium();
+
 private:
     iLiveHelper *helper;
-    void onRequestMinium();
-private:
     QMap<QObject*, QQmlApplicationEngine*> engines;
 };
 

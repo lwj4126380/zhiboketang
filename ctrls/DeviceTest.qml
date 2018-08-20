@@ -7,6 +7,8 @@ Item {
     id: root
     anchors.fill: parent
 
+    property var root_window
+
     RowLayout {
         anchors.fill: parent
         ComboBox {
@@ -21,6 +23,13 @@ Item {
             id: videoOutput
             Layout.fillHeight: true
             Layout.fillWidth: true
+        }
+    }
+
+    Connections {
+        target: root_window
+        onRequestClose: {
+            root_window.close()
         }
     }
 }
