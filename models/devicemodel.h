@@ -23,7 +23,7 @@ public:
 
     DeviceModel(QObject *parent = 0);
 
-    void addDevice(const QString &id, const QString &name);
+    Q_INVOKABLE void addDevice(const QString &id, const QString &name);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
