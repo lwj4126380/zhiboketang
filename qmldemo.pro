@@ -22,7 +22,8 @@ SOURCES += \
     ilive/NetworkHelper.cpp \
     ilive/PicDownHelper.cpp \
     ilive/SxbServerHelper.cpp \
-    ilive/json/jsoncpp.cpp
+    ilive/json/jsoncpp.cpp \
+    models/devicemodel.cpp
 
 HEADERS += \
     utils/windowcontroller.h \
@@ -36,7 +37,8 @@ HEADERS += \
     ilive/PicDownHelper.h \
     ilive/SxbServerHelper.h \
     ilive/json/json.h \
-    ilive/json/json-forwards.h
+    ilive/json/json-forwards.h \
+    models/devicemodel.h
 
 RESOURCES += qml.qrc
 

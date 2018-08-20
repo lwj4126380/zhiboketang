@@ -6,7 +6,7 @@
 #include <QVideoSurfaceFormat>
 #include <QDebug>
 
-class FameProvider : public QObject
+class FrameProvider : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractVideoSurface *videoSurface READ videoSurface WRITE setVideoSurface)

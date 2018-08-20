@@ -3,6 +3,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import QtMultimedia 5.8
 
+import com.fulaan.DeviceModel 1.0
+
 Item {
     id: root
     anchors.fill: parent
@@ -13,6 +15,11 @@ Item {
         anchors.fill: parent
         ComboBox {
             id: deviceCB
+            textRole: "deviceName"
+
+            model: DeviceModel {
+                deviceType: DeviceModel.PlayerDevice
+            }
         }
 
         Button {

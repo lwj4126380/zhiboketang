@@ -6,6 +6,7 @@
 #include <QDebug>
 #include "utils/windowcontroller.h"
 #include "utils/frameprovider.h"
+#include "models/devicemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +16,8 @@ int main(int argc, char *argv[])
     QQuickWindow::setDefaultAlphaBuffer(true);
     QQuickStyle::setStyle("Material");
 
-    qmlRegisterType<FameProvider>("com.fulaan.FrameProvider", 1, 0, "FrameProvider");
+    qmlRegisterType<FrameProvider>("com.fulaan.FrameProvider", 1, 0, "FrameProvider");
+    qmlRegisterType<DeviceModel>("com.fulaan.DeviceModel", 1, 0, "DeviceModel");
 
     WindowController controller;
 
