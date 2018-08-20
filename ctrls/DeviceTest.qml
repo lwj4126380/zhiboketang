@@ -18,7 +18,7 @@ Item {
             textRole: "deviceName"
 
             model: DeviceModel {
-                deviceType: DeviceModel.PlayerDevice
+                deviceType: DeviceModel.CameraDevice
             }
         }
 

@@ -39,10 +39,20 @@ QVariant DeviceModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+void DeviceModel::clearData()
+{
+    auto data_t = mDevices.size();
+    if (!data_t) {
+        return;
+    }
+    beginRemoveRows(QModelIndex(), 0, data_t - 1);
+    mDevices.clear();
+    endRemoveRows();
+}
+
 void DeviceModel::OnDeviceDetect(void *data)
 {
     DeviceModel *model = (DeviceModel *)data;
-    qDebug() << "AAAAAAAAA " << model->mDeviceType;
     Vector< Pair<String, String> > cameraList;
     switch (model->mDeviceType) {
     case CameraDevice:
@@ -50,7 +60,7 @@ void DeviceModel::OnDeviceDetect(void *data)
         int nRet = GetILive()->getCameraList(cameraList);
         if (nRet == NO_ERR)
         {
-            model->mDevices.clear();
+            model->clearData();
             for(int i=0; i<cameraList.size(); ++i)
             {
                 model->addDevice(QString::fromLocal8Bit(cameraList[i].first.c_str()), QString::fromLocal8Bit(cameraList[i].second.c_str()));
