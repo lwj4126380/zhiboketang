@@ -24,6 +24,7 @@ public:
     DeviceModel(QObject *parent = 0);
 
     Q_INVOKABLE void addDevice(const QString &id, const QString &name);
+    Q_INVOKABLE void clearData();
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
@@ -31,7 +32,6 @@ public:
 
     void setDeviceType(DeviceType type) { mDeviceType = type;}
     DeviceType deviceType() { return mDeviceType; }
-    Q_INVOKABLE void clearData();
 
     static void OnDeviceDetect(void* data);
 
