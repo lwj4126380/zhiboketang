@@ -45,9 +45,9 @@ void DeviceModel::clearData()
     if (!data_t) {
         return;
     }
-    beginRemoveRows(QModelIndex(), 0, data_t - 1);
+    beginResetModel();
     mDevices.clear();
-    endRemoveRows();
+    endResetModel();
 }
 
 void DeviceModel::OnDeviceDetect(void *data)

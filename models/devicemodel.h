@@ -31,7 +31,7 @@ public:
 
     void setDeviceType(DeviceType type) { mDeviceType = type;}
     DeviceType deviceType() { return mDeviceType; }
-    void clearData();
+    Q_INVOKABLE void clearData();
 
     static void OnDeviceDetect(void* data);
 
