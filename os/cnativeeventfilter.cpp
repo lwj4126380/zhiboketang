@@ -24,7 +24,7 @@ bool CNativeEventFilter::nativeEventFilter(const QByteArray &, void *m, long *r)
     // corresponds to the LRESULT pointer.
 
     const auto msg = static_cast<MSG *>(m);
-    if (msg->hwnd != m_hand && m_wnd->windowState() == Qt::WindowMaximized) {
+    if (msg->hwnd != m_hand || m_wnd->windowState() == Qt::WindowMaximized) {
         return false;
     }
 
