@@ -4,5 +4,5 @@ BorderlessWindow {
     id: root
 
     app_title: m_const.app_name
-    app_content_rect.source: "qrc:/ctrls/Login.qml"
+    Component.onCompleted: app_content_rect.setSource("qrc:/ctrls/NormalButton.qml", {"root_window": root})
 }

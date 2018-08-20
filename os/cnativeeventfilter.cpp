@@ -2,11 +2,16 @@
 
 #include <Windows.h>
 #include <windowsx.h>
+#include <QDebug>
 #include "../utils/cconstants.h"
 
 CNativeEventFilter::CNativeEventFilter(HWND handle, QQuickWindow *wnd)
     : QAbstractNativeEventFilter(), m_wnd(wnd), m_hand(handle)
 {
+}
+
+CNativeEventFilter::~CNativeEventFilter() {
+    qDebug() << "CNativeEventFilter destroyed...";
 }
 
 bool CNativeEventFilter::nativeEventFilter(const QByteArray &, void *m, long *r)

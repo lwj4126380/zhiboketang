@@ -8,6 +8,7 @@
 class CNativeEventFilter : public QAbstractNativeEventFilter {
 public:
     CNativeEventFilter(HWND handle, QQuickWindow *wnd);
+    ~CNativeEventFilter();
 
     virtual bool nativeEventFilter(const QByteArray &eventType,
                                    void *message,

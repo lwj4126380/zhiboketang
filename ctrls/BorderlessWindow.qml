@@ -7,6 +7,9 @@ import QtQuick.Window 2.11
 ApplicationWindow {
     id: root
 
+    signal requestMinium()
+    signal requestClose()
+
     width: m_const.wnd_min_width
     height: m_const.wnd_min_height
 
@@ -25,27 +28,19 @@ ApplicationWindow {
 
     property alias app_content_rect: center_rect.r_p_c_rect
     property var app_title
-    property bool is_maxi
 
     function setWindowMaxi() {
         if (root.visibility !== Window.Maximized) {
-            is_maxi = true
             main_box.shadow_len = 0
             root.showMaximized()
         } else {
-            is_maxi = false
             main_box.shadow_len = m_const.shadow_len
             root.showNormal()
         }
     }
 
     function setWindowMini() {
-        root.showMinimized()
-    }
-
-    onWindowStateChanged: {
-        if (windowState === Qt.WindowNoState && is_maxi)
-            setWindowMaxi()
+        requestMinium()
     }
 
     WndContainer {
@@ -106,7 +101,7 @@ ApplicationWindow {
                     }
                     Button {
                         text: qsTr("close")
-                        onClicked: root.close()
+                        onClicked: requestClose()
                     }
                 }
 
