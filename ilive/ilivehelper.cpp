@@ -119,7 +119,8 @@ void iLiveHelper::OniLiveLoginError(int code, const char *desc, void *data)
 
 void iLiveHelper::OnStartDeviceTestSuc(void *data)
 {
-
+    iLiveHelper* ilive = reinterpret_cast<iLiveHelper*>(data);
+    emit ilive->openDeviceTestPage();
 }
 
 void iLiveHelper::OnStartDeviceTestErr(int code, const char *desc, void *data)

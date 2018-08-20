@@ -67,7 +67,6 @@ ApplicationWindow {
         ColumnLayout {
             id: cl
             anchors.fill: parent
-//            spacing: 0
             property alias p_c_rect: content_rect
             Item {
                 id: title_rect
@@ -114,10 +113,29 @@ ApplicationWindow {
 
             }
 
-            Loader {
-                id: content_rect
+            Item {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                layer.enabled: true
+                Rectangle {
+                    color: "white"
+                    radius: m_const.wnd_radius
+                    anchors.fill: parent
+                }
+                Rectangle {
+                    color: "white"
+                    anchors.fill: parent
+                    anchors.bottomMargin: m_const.wnd_radius
+                }
+
+                Loader {
+                    id: content_rect
+                    anchors.fill: parent
+                    anchors.leftMargin: m_const.wnd_radius
+                    anchors.rightMargin: m_const.wnd_radius
+                    anchors.bottomMargin: m_const.wnd_radius
+                    anchors.topMargin: 0
+                }
             }
         }
 

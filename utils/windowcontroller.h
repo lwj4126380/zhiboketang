@@ -13,7 +13,7 @@ public:
     explicit WindowController(QObject *parent = nullptr);
     ~WindowController();
 
-Q_INVOKABLE void openMainView();
+Q_INVOKABLE void openSpecificView(QString qmlPath);
 
 signals:
 

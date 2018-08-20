@@ -19,6 +19,6 @@ int main(int argc, char *argv[])
 
     WindowController controller;
 
-    controller.openMainView();
+    controller.openSpecificView("qrc:/main.qml");
     return app.exec();
 }

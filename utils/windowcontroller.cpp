@@ -10,6 +10,9 @@
 WindowController::WindowController(QObject *parent) : QObject(parent)
 {
     helper = new iLiveHelper(this);
+    connect(helper, &iLiveHelper::openDeviceTestPage, this, [&](){
+        openSpecificView("qrc:/DeviceTest.qml");
+    });
 }
 
 WindowController::~WindowController()
@@ -17,13 +20,13 @@ WindowController::~WindowController()
     qDebug() << "WindowController destroyed";
 }
 
-void WindowController::openMainView()
+void WindowController::openSpecificView(QString qmlPath)
 {   
     QQmlApplicationEngine *engine = new QQmlApplicationEngine();
     engine->rootContext()->setContextProperty("g_controller", this);
     engine->rootContext()->setContextProperty("m_const", CSingleton<CConstants>::Instance());
     engine->rootContext()->setContextProperty("m_iLiveHelper", helper);
-    engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine->load(QUrl(qmlPath));
     QList<QObject*> obs = engine->rootObjects();
     if (!obs.isEmpty()) {
         QQuickWindow *window = qobject_cast<QQuickWindow *>(obs.first());

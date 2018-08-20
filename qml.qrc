@@ -5,6 +5,8 @@
         <file>ctrls/OverlayCom.qml</file>
         <file>ctrls/WndContainer.qml</file>
         <file>ctrls/BorderlessWindow.qml</file>
-        <file>ctrls/NormalButton.qml</file>
+        <file>ctrls/Login.qml</file>
+        <file>ctrls/DeviceTest.qml</file>
+        <file>DeviceTest.qml</file>
     </qresource>
 </RCC>

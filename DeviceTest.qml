@@ -4,5 +4,5 @@ BorderlessWindow {
     id: root
 
     app_title: m_const.app_name
-    app_content_rect.source: "qrc:/ctrls/Login.qml"
+    app_content_rect.source: "qrc:/ctrls/DeviceTest.qml"
 }

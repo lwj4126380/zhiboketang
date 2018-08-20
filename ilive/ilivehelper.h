@@ -38,6 +38,9 @@ Q_INVOKABLE void doLogin(QString id, QString pwd);
 signals:
     void showTips(int code, QString desc);
     void loginSuccess();
+
+    void openDeviceTestPage();
+
 public slots:
 
 private:
