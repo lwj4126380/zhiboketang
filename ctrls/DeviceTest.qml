@@ -16,14 +16,24 @@ Item {
         ComboBox {
             id: deviceCB
             textRole: "deviceName"
+            enabled: count !== 0
 
             model: DeviceModel {
+                id: deviceModel
                 deviceType: DeviceModel.CameraDevice
+            }
+
+            onCountChanged: {
+                if (count !== 0)
+                    currentIndex = 0
             }
         }
 
         Button {
             text: "打开摄像头"
+            onClicked: {
+                deviceModel.addDevice("111111", "222222222")
+            }
         }
 
         VideoOutput {
