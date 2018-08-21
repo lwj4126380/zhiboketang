@@ -50,6 +50,14 @@ void DeviceModel::clearData()
     endResetModel();
 }
 
+QString DeviceModel::getIndexValue(const QModelIndex &index)
+{
+    if (index.row() < 0 || index.row() >= mDevices.count())
+        return "";
+
+    return mDevices[index.row()].first;
+}
+
 void DeviceModel::OnDeviceDetect(void *data)
 {
     DeviceModel *model = (DeviceModel *)data;

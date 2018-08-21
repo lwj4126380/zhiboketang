@@ -13,6 +13,7 @@ public:
         IdRole = Qt::UserRole + 1,
         NameRole
     };
+    Q_ENUMS(DeviceRoles)
 
     enum DeviceType {
         CameraDevice,
@@ -25,6 +26,7 @@ public:
 
     Q_INVOKABLE void addDevice(const QString &id, const QString &name);
     Q_INVOKABLE void clearData();
+    Q_INVOKABLE QString getIndexValue(const QModelIndex &index);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 

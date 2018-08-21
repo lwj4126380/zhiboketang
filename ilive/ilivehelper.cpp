@@ -8,6 +8,7 @@ iLiveHelper::iLiveHelper(QObject *parent) : QObject(parent)
     GetILive()->setMessageCallBack(iLiveHelper::OnMessage, this);
     GetILive()->setForceOfflineCallback(iLiveHelper::onForceOffline);
     GetILive()->setRemoteVideoCallBack(iLiveHelper::OnRemoteVideo, this);
+    GetILive()->setLocalVideoCallBack(iLiveHelper::OnLocalVideo, this);
     GetILive()->setChannelMode(E_ChannelIMSDK);
 
     iLiveRootView* pView = iLiveCreateRootView();
@@ -44,6 +45,11 @@ void iLiveHelper::doDeviceTest()
     GetILive()->startDeviceTest(OnStartDeviceTestSuc, OnStartDeviceTestErr, this);
 }
 
+void iLiveHelper::openCamera(QString cameraId)
+{
+    GetILive()->openCamera(cameraId.toStdString().c_str());
+}
+
 void iLiveHelper::onForceOffline()
 {
 
@@ -66,7 +72,7 @@ void iLiveHelper::OnDeviceDetect(void *data)
 
 void iLiveHelper::OnLocalVideo(const LiveVideoFrame *video_frame, void *custom_data)
 {
-
+    qDebug() << "AAAAAA " << video_frame->desc.colorFormat << video_frame->desc.width;
 }
 
 void iLiveHelper::OnRemoteVideo(const LiveVideoFrame *video_frame, void *custom_data)

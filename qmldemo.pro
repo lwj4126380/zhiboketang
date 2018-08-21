@@ -23,7 +23,8 @@ SOURCES += \
     ilive/PicDownHelper.cpp \
     ilive/SxbServerHelper.cpp \
     ilive/json/jsoncpp.cpp \
-    models/devicemodel.cpp
+    models/devicemodel.cpp \
+    utils/frameprovider.cpp
 
 HEADERS += \
     utils/windowcontroller.h \

@@ -14,8 +14,9 @@ public:
     explicit iLiveHelper(QObject *parent = nullptr);
     ~iLiveHelper();
 
-Q_INVOKABLE void doLogin(QString id, QString pwd);
+    Q_INVOKABLE void doLogin(QString id, QString pwd);
     Q_INVOKABLE void doDeviceTest();
+    Q_INVOKABLE void openCamera(QString cameraId);
 
     static void onForceOffline();
     static void OnMemStatusChange(E_EndpointEventId event_id, const Vector<String> &ids, void* data);

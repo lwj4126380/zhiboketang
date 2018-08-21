@@ -4,12 +4,19 @@ import QtQuick.Controls 2.2
 import QtMultimedia 5.8
 
 import com.fulaan.DeviceModel 1.0
+import com.fulaan.FrameProvider 1.0
+
 
 Item {
     id: root
     anchors.fill: parent
 
     property var root_window
+
+    function getComboboxCurrentValue(combobox) {
+        var mi = combobox.model.index(combobox.currentIndex, 0)
+        return combobox.model.getIndexValue(mi)
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -19,7 +26,6 @@ Item {
             enabled: count !== 0
 
             model: DeviceModel {
-                id: deviceModel
                 deviceType: DeviceModel.CameraDevice
             }
 
@@ -32,7 +38,13 @@ Item {
         Button {
             text: "打开摄像头"
             onClicked: {
-                deviceModel.addDevice("111111", "222222222")
+                if (deviceCB.count === 0) {
+                    deviceToolTip.text = "无可用设备"
+                    deviceToolTip.visible = true
+                } else {
+                    var deviceId = getComboboxCurrentValue(deviceCB)
+                    m_iLiveHelper.openCamera(deviceId)
+                }
             }
         }
 
@@ -40,7 +52,18 @@ Item {
             id: videoOutput
             Layout.fillHeight: true
             Layout.fillWidth: true
+            source: camera
         }
+
+        FrameProvider {
+            id: camera
+        }
+    }
+
+    ToolTip {
+        id: deviceToolTip
+        timeout: 3000
+        y: parent.height - height
     }
 
     Connections {
