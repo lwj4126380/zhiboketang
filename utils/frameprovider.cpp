@@ -5,9 +5,7 @@
 
 FrameProvider::FrameProvider(QObject *parent) : QObject(parent)
 {
-    connect(CSingleton<iLiveHelper>::Instance(), &iLiveHelper::localVideoReceived, this, [&](const QVideoFrame &frame){
-        receiveOneFrame(frame);
-    });
+    connect(CSingleton<iLiveHelper>::Instance(), &iLiveHelper::localVideoReceived, this, &FrameProvider::receiveOneFrame);
 }
 
 FrameProvider::~FrameProvider()
