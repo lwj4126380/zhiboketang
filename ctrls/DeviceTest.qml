@@ -45,6 +45,7 @@ Item {
                     var deviceId = getComboboxCurrentValue(deviceCB)
                     m_iLiveHelper.openCamera(deviceId)
                 }
+//                camera.getOneFrame()
             }
         }
 
@@ -69,6 +70,7 @@ Item {
     Connections {
         target: root_window
         onRequestClose: {
+            m_iLiveHelper.doStopDeviceTest()
             root_window.close()
         }
     }

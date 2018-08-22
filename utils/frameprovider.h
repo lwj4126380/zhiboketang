@@ -5,6 +5,9 @@
 #include <QAbstractVideoSurface>
 #include <QVideoSurfaceFormat>
 #include <QDebug>
+#include "iLive.h"
+
+using namespace ilive;
 
 class FrameProvider : public QObject
 {
@@ -14,7 +17,10 @@ class FrameProvider : public QObject
 
 public:
     FrameProvider(QObject *parent=nullptr);
+    ~FrameProvider();
     QAbstractVideoSurface* videoSurface() const;
+
+    static void OnLocalVideo(const LiveVideoFrame* video_frame, void* custom_data);
 
 private:
     QAbstractVideoSurface *m_surface = NULL;

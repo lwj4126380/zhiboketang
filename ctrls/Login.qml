@@ -36,6 +36,15 @@ SwipeView {
                     m_iLiveHelper.doDeviceTest()
                 }
             }
+
+            Button {
+                id: deviceTestBtn1
+                Layout.alignment: Qt.AlignHCenter
+                text: "结束设备测试"
+                onClicked: {
+                    m_iLiveHelper.doStopDeviceTest()
+                }
+            }
         }
 
     }

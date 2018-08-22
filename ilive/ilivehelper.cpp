@@ -7,12 +7,11 @@ iLiveHelper::iLiveHelper(QObject *parent) : QObject(parent)
 {
     GetILive()->setMessageCallBack(iLiveHelper::OnMessage, this);
     GetILive()->setForceOfflineCallback(iLiveHelper::onForceOffline);
-    GetILive()->setRemoteVideoCallBack(iLiveHelper::OnRemoteVideo, this);
-    GetILive()->setLocalVideoCallBack(iLiveHelper::OnLocalVideo, this);
     GetILive()->setChannelMode(E_ChannelIMSDK);
 
     iLiveRootView* pView = iLiveCreateRootView();
     E_ColorFormat fmt = (pView->getRootViewType() ==ROOT_VIEW_TYPE_D3D) ? COLOR_FORMAT_I420 : COLOR_FORMAT_RGB24;
+//    E_ColorFormat fmt = COLOR_FORMAT_RGB32;
     GetILive()->setVideoColorFormat(fmt);//iLiveSDK目前的渲染模块，D3D只支持I420格式，GDI只支持RGB24格式;
     pView->destroy();
 
@@ -26,8 +25,8 @@ iLiveHelper::iLiveHelper(QObject *parent) : QObject(parent)
 
 iLiveHelper::~iLiveHelper()
 {
-    GetILive()->release();
     qDebug() << "iLiveHelper destroyed...";
+    GetILive()->release();
 }
 
 void iLiveHelper::doLogin(QString id, QString pwd)
@@ -43,6 +42,11 @@ void iLiveHelper::doLogin(QString id, QString pwd)
 void iLiveHelper::doDeviceTest()
 {
     GetILive()->startDeviceTest(OnStartDeviceTestSuc, OnStartDeviceTestErr, this);
+}
+
+void iLiveHelper::doStopDeviceTest()
+{
+    GetILive()->stopDeviceTest(NULL, NULL, NULL);
 }
 
 void iLiveHelper::openCamera(QString cameraId)
@@ -66,16 +70,6 @@ void iLiveHelper::OnRoomDisconnect(int reason, const char *errorinfo, void *data
 }
 
 void iLiveHelper::OnDeviceDetect(void *data)
-{
-
-}
-
-void iLiveHelper::OnLocalVideo(const LiveVideoFrame *video_frame, void *custom_data)
-{
-    qDebug() << "AAAAAA " << video_frame->desc.colorFormat << video_frame->desc.width;
-}
-
-void iLiveHelper::OnRemoteVideo(const LiveVideoFrame *video_frame, void *custom_data)
 {
 
 }

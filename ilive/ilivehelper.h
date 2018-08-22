@@ -16,14 +16,13 @@ public:
 
     Q_INVOKABLE void doLogin(QString id, QString pwd);
     Q_INVOKABLE void doDeviceTest();
+    Q_INVOKABLE void doStopDeviceTest();
     Q_INVOKABLE void openCamera(QString cameraId);
 
     static void onForceOffline();
     static void OnMemStatusChange(E_EndpointEventId event_id, const Vector<String> &ids, void* data);
     static void OnRoomDisconnect(int reason, const char *errorinfo, void* data);
     static void OnDeviceDetect(void* data);
-    static void OnLocalVideo(const LiveVideoFrame* video_frame, void* custom_data);
-    static void OnRemoteVideo(const LiveVideoFrame* video_frame, void* custom_data);
     static void OnMessage( const Message& msg, void* data );
     static void OnDeviceOperation(E_DeviceOperationType oper, int retCode, void* data);
     static void OnQualityParamCallback(const iLiveRoomStatParam& param, void* data);
