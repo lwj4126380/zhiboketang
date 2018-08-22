@@ -9,6 +9,7 @@ SwipeView {
     objectName: "swipeview"
     anchors.fill: parent
     currentIndex: 0
+    interactive: false
 
     property var root_window
 
@@ -16,6 +17,11 @@ SwipeView {
         id: firstPage
         ColumnLayout {
             anchors.fill: parent
+            TextField {
+                id: className
+                Layout.alignment: Qt.AlignHCenter
+            }
+
             Button {
                 id: loginBtn
                 Layout.alignment: Qt.AlignHCenter
@@ -38,11 +44,11 @@ SwipeView {
             }
 
             Button {
-                id: deviceTestBtn1
+                id: startClass
                 Layout.alignment: Qt.AlignHCenter
-                text: "结束设备测试"
+                text: "开始上课"
                 onClicked: {
-                    m_iLiveHelper.doStopDeviceTest()
+                    m_iLiveHelper.doBeginLive()
                 }
             }
         }

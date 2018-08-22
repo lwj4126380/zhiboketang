@@ -7,6 +7,7 @@
 #include "utils/windowcontroller.h"
 #include "utils/frameprovider.h"
 #include "models/devicemodel.h"
+#include "ilive/ilivehelper.h"
 
 int main(int argc, char *argv[])
 {

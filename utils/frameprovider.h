@@ -18,6 +18,9 @@ class FrameProvider : public QObject
 public:
     FrameProvider(QObject *parent=nullptr);
     ~FrameProvider();
+
+    Q_INVOKABLE void getEmptyFrame();
+
     QAbstractVideoSurface* videoSurface() const;
 
     static void OnLocalVideo(const LiveVideoFrame* video_frame, void* custom_data);

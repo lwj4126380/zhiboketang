@@ -8,5 +8,6 @@
         <file>ctrls/Login.qml</file>
         <file>ctrls/DeviceTest.qml</file>
         <file>DeviceTest.qml</file>
+        <file>ctrls/LiveWindow.qml</file>
     </qresource>
 </RCC>

@@ -6,7 +6,6 @@ import QtMultimedia 5.8
 import com.fulaan.DeviceModel 1.0
 import com.fulaan.FrameProvider 1.0
 
-
 Item {
     id: root
     anchors.fill: parent
@@ -36,6 +35,7 @@ Item {
         }
 
         Button {
+            id: cameraBtn
             text: "打开摄像头"
             onClicked: {
                 if (deviceCB.count === 0) {
@@ -43,17 +43,24 @@ Item {
                     deviceToolTip.visible = true
                 } else {
                     var deviceId = getComboboxCurrentValue(deviceCB)
-                    m_iLiveHelper.openCamera(deviceId)
+                    if (m_iLiveHelper.getDeviceState(0))
+                        m_iLiveHelper.closeCamera()
+                    else
+                        m_iLiveHelper.openCamera(deviceId)
+                    cameraBtn.enabled =false
                 }
-//                camera.getOneFrame()
             }
         }
 
-        VideoOutput {
-            id: videoOutput
+        Rectangle {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            source: camera
+            color: "black"
+            VideoOutput {
+                id: videoOutput
+                anchors.fill: parent
+                source: camera
+            }
         }
 
         FrameProvider {
@@ -72,6 +79,30 @@ Item {
         onRequestClose: {
             m_iLiveHelper.doStopDeviceTest()
             root_window.close()
+        }
+    }
+
+    Connections {
+        target: m_iLiveHelper
+        onShowTips: {
+            deviceToolTip.text = desc
+            deviceToolTip.visible = true
+        }
+
+        onDeviceOperation: {
+            switch (type) {
+            case 0:
+                cameraBtn.enabled = true
+                if (m_iLiveHelper.getDeviceState(type))
+                    cameraBtn.text = "关闭摄像头"
+                else {
+                    camera.getEmptyFrame()
+                    cameraBtn.text = "打开摄像头"
+                }
+                break
+            default:
+                break
+            }
         }
     }
 }
