@@ -28,7 +28,6 @@ private:
 
 public:
 
-    Q_INVOKABLE void getOneFrame();
     void setVideoSurface(QAbstractVideoSurface *surface);
 
     void setFormat(int width, int heigth, QVideoFrame::PixelFormat format);

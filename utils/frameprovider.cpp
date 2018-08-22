@@ -30,26 +30,6 @@ void FrameProvider::OnLocalVideo(const LiveVideoFrame *video_frame, void *custom
     provider->onNewVideoContentReceived(frame);
 }
 
-#include <QFile>
-void FrameProvider::getOneFrame()
-{
-    QFile f("J:\\kkkkk111.rgb");
-    f.open(QFile::ReadWrite);
-    QByteArray da = f.readAll();
-    f.close();
-    QVideoFrame frame(da.size(), QSize(640, 480),640, QVideoFrame::Format_YUV420P);
-    frame.map(QAbstractVideoBuffer::ReadWrite);
-    memcpy(frame.bits(), da.data(), da.size());
-    qDebug() << frame.bits();
-    frame.unmap();
-
-    frame.map(QAbstractVideoBuffer::ReadWrite);
-    qDebug() << frame.bits()[460799];
-    frame.unmap();
-    setFormat(frame.width(), frame.height(), frame.pixelFormat());
-    onNewVideoContentReceived(frame);
-}
-
 void FrameProvider::setVideoSurface(QAbstractVideoSurface *surface)
 {
     if (m_surface && m_surface != surface  && m_surface->isActive()) {

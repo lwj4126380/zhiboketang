@@ -23,6 +23,7 @@ public:
     Q_ENUMS(DeviceType)
 
     DeviceModel(QObject *parent = 0);
+    ~DeviceModel();
 
     Q_INVOKABLE void addDevice(const QString &id, const QString &name);
     Q_INVOKABLE void clearData();

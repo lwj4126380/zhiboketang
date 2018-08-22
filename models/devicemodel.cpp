@@ -13,6 +13,12 @@ DeviceModel::DeviceModel(QObject *parent)
     OnDeviceDetect(this);
 }
 
+DeviceModel::~DeviceModel()
+{
+    qDebug() << "DeviceModel destroyed...";
+    GetILive()->setDeviceDetectCallback(NULL, NULL);
+}
+
 void DeviceModel::addDevice(const QString &id, const QString &name)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
