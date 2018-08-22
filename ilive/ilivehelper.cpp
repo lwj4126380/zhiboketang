@@ -9,10 +9,11 @@ iLiveHelper::iLiveHelper(QObject *parent) : QObject(parent)
     GetILive()->setMessageCallBack(OnMessage, this);
     GetILive()->setForceOfflineCallback(onForceOffline);
     GetILive()->setDeviceOperationCallback(OnDeviceOperation, this);
+    GetILive()->setLocalVideoCallBack(OnLocalVideo, this);
     GetILive()->setChannelMode(E_ChannelIMSDK);
 
     iLiveRootView* pView = iLiveCreateRootView();
-        E_ColorFormat fmt = (pView->getRootViewType() ==ROOT_VIEW_TYPE_D3D) ? COLOR_FORMAT_I420 : COLOR_FORMAT_RGB24;
+    E_ColorFormat fmt = (pView->getRootViewType() ==ROOT_VIEW_TYPE_D3D) ? COLOR_FORMAT_I420 : COLOR_FORMAT_RGB24;
 //    E_ColorFormat fmt =  COLOR_FORMAT_RGB24;
     GetILive()->setVideoColorFormat(fmt);//iLiveSDK目前的渲染模块，D3D只支持I420格式，GDI只支持RGB24格式;
     pView->destroy();
@@ -23,10 +24,6 @@ iLiveHelper::iLiveHelper(QObject *parent) : QObject(parent)
         qFatal("init sdk failed.");
         exit(0);
     }
-
-    connect(qApp, &QGuiApplication::aboutToQuit, this, [&](){
-        deleteLater();
-    });
 
     connect(&mSxbHeartBeatTimer, &QTimer::timeout, [&](){
         sxbHeartBeat();
@@ -299,6 +296,22 @@ void iLiveHelper::OnSxbHeartBeat(int errorCode, QString errorInfo, QVariantMap d
 void iLiveHelper::OnSxbRoomIdList(int errorCode, QString errorInfo, QVariantMap datamap, void *pCusData)
 {
 
+}
+
+void iLiveHelper::OnLocalVideo(const LiveVideoFrame *video_frame, void *custom_data)
+{
+    iLiveHelper* ilive = reinterpret_cast<iLiveHelper*>(custom_data);
+    if (video_frame->desc.colorFormat == COLOR_FORMAT_I420) {
+        QVideoFrame frame(video_frame->dataSize, QSize(video_frame->desc.width, video_frame->desc.height),video_frame->desc.width, QVideoFrame::Format_YUV420P);
+        frame.map(QAbstractVideoBuffer::ReadWrite);
+        memcpy(frame.bits(), video_frame->data, video_frame->dataSize);
+        frame.unmap();
+        emit ilive->localVideoReceived(frame);
+    } else if (video_frame->desc.colorFormat == COLOR_FORMAT_RGB24){
+        QImage image(video_frame->data, video_frame->desc.width, video_frame->desc.height, QImage::Format_RGB888);
+        QVideoFrame frame(image.convertToFormat(QImage::Format_RGB32));
+        emit ilive->localVideoReceived(frame);
+    }
 }
 
 void iLiveHelper::iLiveCreateRoom()

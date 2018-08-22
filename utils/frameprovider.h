@@ -20,10 +20,9 @@ public:
     ~FrameProvider();
 
     Q_INVOKABLE void getEmptyFrame();
+    Q_INVOKABLE void receiveOneFrame(const QVideoFrame &frame);
 
     QAbstractVideoSurface* videoSurface() const;
-
-    static void OnLocalVideo(const LiveVideoFrame* video_frame, void* custom_data);
 
 private:
     QAbstractVideoSurface *m_surface = NULL;

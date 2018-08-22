@@ -1,15 +1,18 @@
 #include "frameprovider.h"
+#include "ilive/ilivehelper.h"
+#include "cconstants.h"
 #include <QDebug>
 
 FrameProvider::FrameProvider(QObject *parent) : QObject(parent)
 {
-    GetILive()->setLocalVideoCallBack(OnLocalVideo, this);
+    connect(CSingleton<iLiveHelper>::Instance(), &iLiveHelper::localVideoReceived, this, [&](const QVideoFrame &frame){
+        receiveOneFrame(frame);
+    });
 }
 
 FrameProvider::~FrameProvider()
 {
     qDebug() << "FrameProvider destroyed...";
-    GetILive()->setLocalVideoCallBack(NULL, NULL);
 }
 
 void FrameProvider::getEmptyFrame()
@@ -17,31 +20,17 @@ void FrameProvider::getEmptyFrame()
     onNewVideoContentReceived(QVideoFrame());
 }
 
+void FrameProvider::receiveOneFrame(const QVideoFrame &frame)
+{
+    if (!m_format.isValid()) {
+        setFormat(frame.width(), frame.height(), frame.pixelFormat());
+    }
+    onNewVideoContentReceived(frame);
+}
+
 QAbstractVideoSurface* FrameProvider::videoSurface() const
 {
     return m_surface;
-}
-
-void FrameProvider::OnLocalVideo(const LiveVideoFrame *video_frame, void *custom_data)
-{
-    FrameProvider *provider = (FrameProvider *)custom_data;
-    if (video_frame->desc.colorFormat == COLOR_FORMAT_I420) {
-        QVideoFrame frame(video_frame->dataSize, QSize(video_frame->desc.width, video_frame->desc.height),video_frame->desc.width, QVideoFrame::Format_YUV420P);
-        frame.map(QAbstractVideoBuffer::ReadWrite);
-        memcpy(frame.bits(), video_frame->data, video_frame->dataSize);
-        frame.unmap();
-        if (!provider->m_format.isValid()) {
-            provider->setFormat(frame.width(), frame.height(), frame.pixelFormat());
-        }
-        provider->onNewVideoContentReceived(frame);
-    } else if (video_frame->desc.colorFormat == COLOR_FORMAT_RGB24){
-        QImage image(video_frame->data, video_frame->desc.width, video_frame->desc.height, QImage::Format_RGB888);
-        QVideoFrame frame(image.convertToFormat(QImage::Format_RGB32));
-        if (!provider->m_format.isValid()) {
-            provider->setFormat(frame.width(), frame.height(), frame.pixelFormat());
-        }
-        provider->onNewVideoContentReceived(frame);
-    }
 }
 
 void FrameProvider::setVideoSurface(QAbstractVideoSurface *surface)

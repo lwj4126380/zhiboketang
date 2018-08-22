@@ -77,9 +77,10 @@ Item {
     Connections {
         target: root_window
         onRequestClose: {
-            m_iLiveHelper.doStopDeviceTest()
             root_window.close()
         }
+
+        onClosing: m_iLiveHelper.doStopDeviceTest()
     }
 
     Connections {

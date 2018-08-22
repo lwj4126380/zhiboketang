@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QTimer>
+#include <QVideoFrame>
 #include "iLive.h"
 
 using namespace ilive;
@@ -84,6 +85,8 @@ public:
     static void OnSxbHeartBeat(int errorCode, QString errorInfo, QVariantMap datamap, void* pCusData);
     static void OnSxbRoomIdList(int errorCode, QString errorInfo, QVariantMap datamap, void* pCusData);
 
+    static void OnLocalVideo(const LiveVideoFrame* video_frame, void* custom_data);
+
     //iLiveSDK相关操作
     void iLiveCreateRoom();
 
@@ -96,7 +99,7 @@ public:
 signals:
     void showTips(int code, QString desc);
     void loginSuccess();
-
+    void localVideoReceived(const QVideoFrame &frame);
     void openDeviceTestPage();
     void openLiveWindow();
     void deviceOperation(DeviceOperationType type, bool bOpen, int vol=0);

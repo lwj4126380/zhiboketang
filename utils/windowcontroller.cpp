@@ -9,7 +9,7 @@
 
 WindowController::WindowController(QObject *parent) : QObject(parent)
 {
-    helper = new iLiveHelper();
+    helper = CSingleton<iLiveHelper>::Instance();
     connect(helper, &iLiveHelper::openDeviceTestPage, this, [&](){
         openSpecificView("qrc:/DeviceTest.qml");
     });
